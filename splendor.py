@@ -36,7 +36,7 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if not gc.Started:
-                menu.UpdateText(screen, event)
+                menu.UpdateText(event)
                 continue
             
         if event.type == pygame.MOUSEBUTTONDOWN:
