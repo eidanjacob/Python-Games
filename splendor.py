@@ -2,21 +2,24 @@ import pygame, sys
 from pygame.locals import *
 from SplendorFiles.gameController import *
 from SplendorFiles.mainMenu import *
+from SplendorFiles.gameInterface import *
 
 pygame.init()
-BROWN = (75, 25, 0)
+BROWN = (45, 5, 0)
 resolution = (1000,750)
 screen = pygame.display.set_mode(resolution)
 screen.fill(BROWN) # background color
 menu = MainMenu(screen)
+ui = GameInterface()
 
 def start(game, screen):
     game.StartGame()
+    ui.Draw(game, screen)
     #TODO: draw game
 
 def addPlayer(game, screen):
     if not game.Started:
-        game.AddPlayer(menu.text)
+        game.AddPlayer()
         menu.ResetText()
         
 def null(game, screen):

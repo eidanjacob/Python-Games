@@ -19,6 +19,10 @@ class MainMenu:
         self.TextInputField = pygame.draw.rect(screen, self.fillColor, [int(x) for x in [self.w * 0.55, self.h * 0.65, self.w * 0.2, self.h * 0.1]])
         self.TextInputActive = False
         self.text = ""
+        self.PlayerList = pygame.draw.rect(screen, self.fillColor, [int(x) for x in [self.w * 0.55, self.h * 0.35, self.w * 0.2, self.h * 0.2]])
+        playerList = self.font.render("Players:", True, self.textColor, self.fillColor)
+        self.screen.blit(playerList, playerList.get_rect(center = (self.w * 0.65, self.h * 0.38)))
+        self.nPlayers = 1
 
     def UpdateText(self, event):
         if not self.TextInputActive:
@@ -31,8 +35,15 @@ class MainMenu:
         self.RenderText()
 
     def ResetText(self):
+        self.WritePlayer()
         self.text = ""
         self.RenderText()
+
+    def WritePlayer(self):
+        if self.nPlayers < 4:
+            playerName = self.font.render(str(self.nPlayers) + ".) " + self.text, True, self.textColor, self.fillColor)
+            self.screen.blit(playerName, playerName.get_rect(center = (self.w * 0.65, self.h * (0.4 + 0.03 * self.nPlayers))))
+            self.nPlayers += 1
 
     def RenderText(self):
         rendered = self.font.render(self.text, True, self.textColor, self.fillColor)
@@ -45,7 +56,7 @@ class MainMenu:
         self.Buttons = { "start" : start, "addPlayer" : add }
 
     def StartButton(self):
-        startButton = pygame.draw.rect(self.screen, self.fillColor, [int(x) for x in [self.w * 0.25, self.h * 0.45, self.w * 0.2, self.h * 0.1]])
+        startButton = pygame.draw.rect(self.screen, self.fillColor, [int(x) for x in [self.w * 0.25, self.h * 0.4, self.w * 0.2, self.h * 0.1]])
         text = self.font.render("Start Game", True, self.textColor, self.fillColor)
         text_rect = text.get_rect(center = startButton.center)
         self.screen.blit(text, text_rect)
