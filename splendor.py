@@ -15,7 +15,6 @@ ui = GameInterface()
 def start(game, screen):
     game.StartGame()
     ui.Draw(game, screen)
-    #TODO: draw game
 
 def addPlayer(game, screen):
     if not game.Started:
