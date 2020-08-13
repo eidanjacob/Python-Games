@@ -29,7 +29,7 @@ class MainMenu:
             return
         elif event.key is pygame.K_BACKSPACE:
             self.text = self.text[:-1]
-        elif len(self.text) < 12:
+        elif len(self.text) < 10:
             self.text += event.unicode
 
         self.RenderText()

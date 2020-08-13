@@ -10,15 +10,14 @@ resolution = (1000,750)
 screen = pygame.display.set_mode(resolution)
 screen.fill(BROWN) # background color
 menu = MainMenu(screen)
-ui = GameInterface()
 
 def start(game, screen):
     game.StartGame()
-    ui.Draw(game, screen)
+    ui.Draw()
 
 def addPlayer(game, screen):
     if not game.Started:
-        game.AddPlayer()
+        game.AddPlayer(menu.text)
         menu.ResetText()
         
 def null(game, screen):
@@ -33,6 +32,7 @@ buttons = menu.Buttons
 pygame.display.set_caption('Splendor')
 pygame.display.update()
 gc = GameController()
+ui = GameInterface(gc, screen)
 
 while True:
     for event in pygame.event.get():
@@ -59,5 +59,8 @@ while True:
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
+
+        if gc.Started:
+            ui.Draw()
             
         pygame.display.update()

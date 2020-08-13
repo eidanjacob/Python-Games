@@ -53,11 +53,11 @@ class GameController:
         self.Coins = {}
 
     # Adds a player to the game.
-    def AddPlayer(self, name = None):
+    def AddPlayer(self, name = ""):
         # Don't add a player when the game has already started or when the table is already full.
         if not self.Started and not len(self.Players) >= 4:
             # Add a "Player #" if no name is provided.
-            if name is None:
+            if name == "":
                 name = "Player " + str(len(self.Players) + 1)
             self.Players.append(Player(name))
 
