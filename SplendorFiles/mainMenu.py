@@ -41,6 +41,8 @@ class MainMenu:
 
     def WritePlayer(self):
         if self.nPlayers <= 4:
+            if self.text == "":
+                self.text = "Player " + str(self.nPlayers)
             playerName = self.font.render(str(self.nPlayers) + ".) " + self.text, True, self.textColor, self.fillColor)
             self.screen.blit(playerName, playerName.get_rect(center = (self.w * 0.65, self.h * (0.4 + 0.03 * self.nPlayers))))
             self.nPlayers += 1
