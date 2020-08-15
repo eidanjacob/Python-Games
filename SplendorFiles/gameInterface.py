@@ -3,8 +3,8 @@ from pygame.locals import *
 
 
 LTBROWN = (75, 25, 0)
-gry = "Colors[gry]"
-blk = "Colors[blk]"
+gry = "gray"
+blk = "black"
 wht = "white"
 blu = "blue"
 grn = "green"
@@ -62,6 +62,12 @@ class GameInterface:
                 left = self.playerCoins[12*i + 2*j]
                 top = self.playerCoins[12*i + 2*j+1]
                 pygame.draw.circle(self.screen, col, (left, top), 15)
+                textColor = blk
+                if colorNames[j] == blk or colorNames[j] == blu:
+                    textColor = wht
+                    
+                text = self.font.render(str(self.gameController.Players[i].Coins[colorNames[j]]), True, Colors[textColor], col)
+                self.screen.blit(text, text.get_rect(center = (left, top)))
         
         for i in range(4):
             # Draw cards on table
