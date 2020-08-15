@@ -22,6 +22,7 @@ class GameInterface:
                             [int(x) for x in [w * 0.21, h * 0.86]], \
                             [int(x) for x in [w * 0.01, h * 0.11]], \
                             [int(x) for x in [w - h * 0.14, h * 0.11]]]
+        self.playerScores = [[group[0], int(group[1] + h * 0.025)] for group in self.playerNames ]
                              
 
     def Draw(self):
@@ -32,6 +33,8 @@ class GameInterface:
             thisPlayer = self.gameController.Players[i]
             label = self.font.render(thisPlayer.Name, True, BLACK, GRAY)
             self.screen.blit(label, label.get_rect(left = self.playerNames[i][0], top = self.playerNames[i][1]))
+            score = self.font.render("Score: " + str(thisPlayer.Score), True, BLACK, GRAY)
+            self.screen.blit(score, score.get_rect(left = self.playerScores[i][0], top = self.playerScores[i][1]))
         
         # draw card stacks
         

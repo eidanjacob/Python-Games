@@ -124,6 +124,7 @@ class Player:
         self.Name = str(name)
         self.Coins = { color : 0 for color in [blk, wht, blu, red, grn, gld] }
         self.Cards = { color : 0 for color in [blk, wht, blu, red, grn] }
+        self.Score = 0
         self.Reserve = []
 
     def GetAvailableCards(self, game):
