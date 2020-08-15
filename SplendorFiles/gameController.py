@@ -101,15 +101,11 @@ class GameController:
 class Card:
 
     def __init__(self, tier, color, points = 0,
-                 black = 0, white = 0,  blue = 0, green = 0, red = 0):
+                 black = 0, white = 0,  blue = 0, green = 0, red_ = 0):
         self.Tier = tier
         self.Color = color
         self.Points = points
-        self.Cost = {"black": black,
-                     "white" : white,
-                     "blue" : blue,
-                     "green": green,
-                     "red" : red}
+        self.Cost = {blk : black, wht : white, blu : blue, grn : green, red : red_ }
         self.Cost = {key:val for key, val in self.Cost.items() if val!= 0}
         self.Location = "Deck"
 
