@@ -69,10 +69,26 @@ class GameInterface:
     def DrawCard(self, left, top, card, horizontal = False):
         width = 100 + 50 * int(horizontal)
         height = 100 + 50 * int(not horizontal)
+        radius = 15
+        bot = top + height - radius - 5
+        costLocs = [left + radius + 5, bot, left + radius + 5, bot - 2 * radius - 5,
+                    left + 3 * radius + 10, bot, left + 3 * radius + 10, bot - 2 * radius - 5]
+        if not horizontal:
+            costLocs += [left + radius + 5, bot - 4 * radius - 15]
+        else:
+            costLocs += [left + radius + 4 * radius + 15, bot]
+
         pygame.draw.rect(self.screen, Colors[card.Color], [left, top, width, height])
         txtColor = wht if card.Color == blk or card.Color == blu else blk
         pts = self.bigFont.render(str(card.Points), True, Colors[txtColor], Colors[card.Color])
         self.screen.blit(pts, pts.get_rect(left = left + 5, top = top + 5))
+        k = 0
+        for costColor in card.Cost.keys():
+            circle = pygame.draw.circle(self.screen, Colors[costColor], costLocs[(2 * k):(2 * k + 2)], radius)
+            txtColor = wht if costColor == blk or costColor == blu else blk
+            cost = self.bigFont.render(str(card.Cost[costColor]), False, Colors[txtColor], Colors[costColor])
+            self.screen.blit(cost, pts.get_rect(center = circle.center))
+            k += 1
 
     def Draw(self):
         self.screen.fill(LTBROWN)
