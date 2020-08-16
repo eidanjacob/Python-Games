@@ -100,7 +100,7 @@ class GameController:
 # Class representing a card
 class Card:
 
-    def __init__(self, tier, color, points = 0,
+    def __init__(self, tier, points, color,
                  black = 0, white = 0,  blue = 0, green = 0, red_ = 0):
         self.Tier = tier
         self.Color = color

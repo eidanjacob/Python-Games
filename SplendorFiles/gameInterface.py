@@ -21,6 +21,7 @@ class GameInterface:
         w = screen.get_width()
         h = screen.get_height()
         self.font = pygame.font.SysFont("Arial Narrow", 20)
+        self.bigFont = pygame.font.SysFont("Arial Narrow", 30)
         self.tableaus = [[int(x) for x in [w * 0.2, 0, w * 0.6, h * 0.15]], \
                          [int(x) for x in [w * 0.2, h * 0.85, w * 0.6, h * 0.15]], \
                          [int(x) for x in [0, h * 0.1, h * 0.15, w * 0.6]], \
@@ -53,17 +54,25 @@ class GameInterface:
                             int(w * 0.4) + 40, int(h * 0.86) + 50, 30, 45,
                             int(w * 0.4) + 80, int(h * 0.86), 30, 45,
                             # Player 3
-                            int(w * 0.01), int(h * 0.3), 45, 30,
-                            int(w * 0.01) + 50, int(h * 0.3), 45, 30,
-                            int(w * 0.01), int(h * 0.3) + 40, 45, 30,
-                            int(w * 0.01) + 50, int(h * 0.3) + 40, 45, 30,
-                            int(w * 0.01), int(h * 0.3) + 80, 45, 30,
+                            int(w * 0.01), int(h * 0.31), 45, 30,
+                            int(w * 0.01) + 50, int(h * 0.31), 45, 30,
+                            int(w * 0.01), int(h * 0.31) + 40, 45, 30,
+                            int(w * 0.01) + 50, int(h * 0.31) + 40, 45, 30,
+                            int(w * 0.01), int(h * 0.31) + 80, 45, 30,
                             # Player 4
-                            int(w * 0.895), int(h * 0.3), 45, 30,
-                            int(w * 0.895) + 50, int(h * 0.3), 45, 30,
-                            int(w * 0.895), int(h * 0.3) + 40, 45, 30,
-                            int(w * 0.895) + 50, int(h * 0.3) + 40, 45, 30,
-                            int(w * 0.895), int(h * 0.3) + 80, 45, 30]
+                            int(w * 0.895), int(h * 0.31), 45, 30,
+                            int(w * 0.895) + 50, int(h * 0.31), 45, 30,
+                            int(w * 0.895), int(h * 0.31) + 40, 45, 30,
+                            int(w * 0.895) + 50, int(h * 0.31) + 40, 45, 30,
+                            int(w * 0.895), int(h * 0.31) + 80, 45, 30]
+
+    def DrawCard(self, left, top, card, horizontal = False):
+        width = 100 + 50 * int(horizontal)
+        height = 100 + 50 * int(not horizontal)
+        pygame.draw.rect(self.screen, Colors[card.Color], [left, top, width, height])
+        txtColor = wht if card.Color == blk or card.Color == blu else blk
+        pts = self.bigFont.render(str(card.Points), True, Colors[txtColor], Colors[card.Color])
+        self.screen.blit(pts, pts.get_rect(left = left + 5, top = top + 5))
 
     def Draw(self):
         self.screen.fill(LTBROWN)
@@ -92,11 +101,11 @@ class GameInterface:
                 rect = pygame.draw.rect(self.screen, Colors[colorNames[j]], self.playerCards[(20 * i + 4 * j):(20 * i + 4 * j + 4)])
                 text = self.font.render(str(thisPlayer.Cards[colorNames[j]]), True, Colors[textColor], col)
                 self.screen.blit(text, text.get_rect(center = rect.center))
-                
-        
+
         # draw card stacks
         for i in range(4):
-            # Draw cards on table
-            continue
+            self.DrawCard(200 + 125 * i, 125, self.gameController.OneOnTable[i])
+            self.DrawCard(200 + 125 * i, 300, self.gameController.TwoOnTable[i])
+            self.DrawCard(200 + 125 * i, 475, self.gameController.ThrOnTable[i])
 
         # TODO: draw nobles (after adding them to game)
