@@ -66,18 +66,14 @@ class GameInterface:
                             int(w * 0.895) + 50, int(h * 0.31) + 40, 45, 30,
                             int(w * 0.895), int(h * 0.31) + 80, 45, 30]
 
-    def DrawCard(self, left, top, card, horizontal = False):
-        width = 100 + 50 * int(horizontal)
-        height = 100 + 50 * int(not horizontal)
+    def DrawCard(self, left, top, card):
+        width = 100
+        height = 125
         radius = 15
         bot = top + height - radius - 5
         costLocs = [left + radius + 5, bot, left + radius + 5, bot - 2 * radius - 5,
-                    left + 3 * radius + 10, bot, left + 3 * radius + 10, bot - 2 * radius - 5]
-        if not horizontal:
-            costLocs += [left + radius + 5, bot - 4 * radius - 15]
-        else:
-            costLocs += [left + radius + 4 * radius + 15, bot]
-
+                    left + 3 * radius + 10, bot, left + 3 * radius + 10, bot - 2 * radius - 5,
+                    left + radius + 5, bot - 4 * radius - 15]
         pygame.draw.rect(self.screen, Colors[card.Color], [left, top, width, height])
         txtColor = wht if card.Color == blk or card.Color == blu else blk
         pts = self.bigFont.render(str(card.Points), True, Colors[txtColor], Colors[card.Color])
@@ -88,6 +84,8 @@ class GameInterface:
             txtColor = wht if costColor == blk or costColor == blu else blk
             cost = self.bigFont.render(str(card.Cost[costColor]), False, Colors[txtColor], Colors[costColor])
             self.screen.blit(cost, pts.get_rect(center = circle.center))
+            if costColor == card.Color:
+                pygame.draw.circle(self.screen, Colors[txtColor], costLocs[(2 * k):(2 * k + 2)], radius, 2)
             k += 1
 
     def Draw(self):
@@ -119,9 +117,25 @@ class GameInterface:
                 self.screen.blit(text, text.get_rect(center = rect.center))
 
         # draw card stacks
+        text = "Tier "
+        for i in range(3):
+            stack = pygame.draw.rect(self.screen, Colors[gry], [200, 125 + i * 140, 100, 125])
+            text += "I"
+            count = None
+            if i == 0:
+                count = text + " - " + str(len(self.gameController.TierOneOrder))
+            elif i == 1:
+                count = text + " - " + str(len(self.gameController.TierTwoOrder))
+            else:
+                count = text + " - " + str(len(self.gameController.TierThrOrder))
+            lbl = self.font.render(count, True, Colors[blk], Colors[gry])
+            self.screen.blit(lbl, lbl.get_rect(center = stack.center))
+
+            
+        # draw cards on table
         for i in range(4):
-            self.DrawCard(200 + 125 * i, 125, self.gameController.OneOnTable[i])
-            self.DrawCard(200 + 125 * i, 300, self.gameController.TwoOnTable[i])
-            self.DrawCard(200 + 125 * i, 475, self.gameController.ThrOnTable[i])
+            self.DrawCard(325 + 125 * i, 125, self.gameController.OneOnTable[i])
+            self.DrawCard(325 + 125 * i, 265, self.gameController.TwoOnTable[i])
+            self.DrawCard(325 + 125 * i, 405, self.gameController.ThrOnTable[i])
 
         # TODO: draw nobles (after adding them to game)
