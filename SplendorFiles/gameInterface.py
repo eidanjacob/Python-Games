@@ -101,6 +101,7 @@ class GameInterface:
             self.screen.blit(score, score.get_rect(left = self.playerScores[i][0], top = self.playerScores[i][1]))
             # TODO: Tableau section labels, reserved cards
             # Coin stacks
+            commonLocation = [235, 575]
             for j in range(6):
                 col = Colors[colorNames[j]]
                 left = self.playerCoins[12*i + 2*j]
@@ -109,7 +110,10 @@ class GameInterface:
                 textColor = wht if (colorNames[j] == blk or colorNames[j] == blu) else blk
                 text = self.font.render(str(thisPlayer.Coins[colorNames[j]]), True, Colors[textColor], col)
                 self.screen.blit(text, text.get_rect(center = (left, top)))
-                # Purchased cards
+                commonStack = pygame.draw.circle(self.screen, col, commonLocation, 30)
+                commonLocation[0] += 107
+                coinsLeft = self.bigFont.render(str(self.gameController.Coins[colorNames[j]]), True, Colors[textColor], col)
+                self.screen.blit(coinsLeft, coinsLeft.get_rect(center = commonStack.center))
                 if j == 5:
                     continue
                 rect = pygame.draw.rect(self.screen, Colors[colorNames[j]], self.playerCards[(20 * i + 4 * j):(20 * i + 4 * j + 4)])
