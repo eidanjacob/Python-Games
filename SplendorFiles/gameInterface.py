@@ -21,7 +21,7 @@ class GameInterface:
         w = screen.get_width()
         h = screen.get_height()
         self.font = pygame.font.SysFont("Arial Narrow", 20)
-        self.bigFont = pygame.font.SysFont("Arial Narrow", 30)
+        self.bigFont = pygame.font.SysFont("Arial Narrow", 28)
         self.tableaus = [[int(x) for x in [w * 0.2, 0, w * 0.6, h * 0.15]], \
                          [int(x) for x in [w * 0.2, h * 0.85, w * 0.6, h * 0.15]], \
                          [int(x) for x in [0, h * 0.1, h * 0.15, w * 0.6]], \
@@ -123,12 +123,12 @@ class GameInterface:
             text += "I"
             count = None
             if i == 0:
-                count = text + " - " + str(len(self.gameController.TierOneOrder))
+                count = text + " (" + str(len(self.gameController.TierOneOrder)) + ")"
             elif i == 1:
-                count = text + " - " + str(len(self.gameController.TierTwoOrder))
+                count = text + " (" + str(len(self.gameController.TierTwoOrder)) + ")"
             else:
-                count = text + " - " + str(len(self.gameController.TierThrOrder))
-            lbl = self.font.render(count, True, Colors[blk], Colors[gry])
+                count = text + " (" + str(len(self.gameController.TierThrOrder)) + ")"
+            lbl = self.bigFont.render(count, True, Colors[blk], Colors[gry])
             self.screen.blit(lbl, lbl.get_rect(center = stack.center))
 
             
